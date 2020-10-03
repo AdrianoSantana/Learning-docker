@@ -1,0 +1,71 @@
+Docker é um sistema de virtualização, porem, não é um sistema de virtualização tradicional.
+O docker é uma engine de administração de containers, baseado nos serviços do LXC(Linux Containers)
+
+Containers
+
+  * Separação de processos no mesmo Kernel
+  * Sistemas de arquivos criados a partir de uma imagem
+  * Encapsula todos os binários e bibliotecas necessárias para execução de um app 
+  * Algo entre um chroot e uma VM
+  * Leve e portáteis
+
+Imagens
+
+  * Modelo de sistema para criar um containers
+  * É uma blueprint o container se baseia nesse arquivos
+  * Imagens são criadas através de um processo chamado de BUILD
+  * São armanezanadas em um repositório chamado Registry
+  * Imagens são divididas em camadas
+  * É possivel compor imagens a partir de camadas de outras imagens
+
+
+Docker Client
+
+Os comandos docker
+Run: Executa 4 comandos por baixo dos panos
+  * Docker image pull ---> baixa uma imagem do registry para a maquina
+  * Docker container create ---> Cria um container a partir daquela imagem
+  * Docker container start -> Starta o container
+  * Docker container exec -> executa o container
+
+O comando run sempre cria um novo container ao usar o comando.
+
+Para acessar o terminal de um container devemos usar a flag -it de iterativo e usar o nome bash no final
+
+Atribuindo um nome ao container:
+  docker container run --name mydeb -it debian bash
+
+ex:
+docker container exec -it debian bash
+
+Docker ps --- Mostra os containers ativos
+docker container ls -- Mostra a lista de containers
+
+
+Reutilizando containers
+  Startando um container já criado:
+    docker container start -ai mydeb, a flag -ai é de attach terminal mais modo iterativo
+
+Mapeando portas de um container
+  docker container run -p 8080:80
+    Usamos a flag -p p1:p2 A porta p1 é a porta externa e a p2 é a porta interna do container,
+    ou seja eu uso 8080 para acessar de fora do container
+
+Mapeando pastar do computador host para o container
+  usamos a flag -v 'Arquivo do host':'Arquivo do container'
+  exemplo:
+    docker container run -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html nginx
+
+
+Rodando um container em background
+  Para rodar um container em background usamos a flag -d, essa flag vem do nome daemons
+  Ex:
+    docker container run -d --name ex-daemon -p 8080:80 -v $(pwd)/ex-volume/html:/usr/share/nginx/html nginx
+  Para parar um container em background usamos
+    docker container stop nomeContainer ou docker container stop idContainer
+  Para reiniciar um container
+    docker container restart nomeContainer ou docker container restart idContainer
+  Para ver os logs de um container
+    docker container logs nomeContainer
+  Para inspecionar o container
+    docker container inspect nomeContainer
