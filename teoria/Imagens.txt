@@ -1,0 +1,29 @@
+Podemos fazer a atualização de uma imagem usando pull
+  ex: docker image pull ubuntu:latest ----> irá atualizar a imagem do nosso pc com a versão mais recente do ubuntu
+
+Para listar as imagens presentes no pc
+  docker image ls
+
+Podemos criar tags para nossas image
+  ex: docker image tag 'imagemOriginal' 'nossa-tag'
+      docker image tag ubuntu:latest ubuntu2020
+
+Docker registry
+  É um serviço que disponibiliza imagens.
+
+Construindo imagem:
+  Existe duas formar de criar uma imagem:
+    * dockerfile - Descritor
+    * commit
+
+Criando imagem a partir de um dockerfile
+
+primeiro passar de onde vamos baixar a imagem
+
+FROM nginx:latest
+RUN echo '<h1> Hello World! </h1>'  > /usr/share/nginx/html/index.html
+
+
+Fazendo o build da imagem
+
+docker image build -t primeira-imagem .
