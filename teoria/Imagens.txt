@@ -27,3 +27,21 @@ RUN echo '<h1> Hello World! </h1>'  > /usr/share/nginx/html/index.html
 Fazendo o build da imagem
 
 docker image build -t primeira-imagem .
+
+O comando copy permite copiar um arquivo para dentro de uma imagem
+
+FROM nginx:latest
+LABEL maintainer 'Adriano Santana <ans3>'
+
+RUN echo '<h1> Sem Conteudo </h1>' > /usr/share/nginx/html/counteudo.html
+COPY *.html /usr/share/nginx/html 
+
+Neste exemplo estamos enviando para a imagem do ngix qualquer arquivo que tiver .html
+
+Podemos tambem usar outras labels como USER, VOLUME, WORKDIR, EXPOSE, ENTRYPOINT, CMD
+
+O expose aponta para porta que queremos mapear no container
+O volume faz o mapeamento do volume no container
+
+o entrypoint define o processo que será iniciado ao executar o container
+o CMD permite passar um comando para o entrypoint 

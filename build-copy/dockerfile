@@ -1,0 +1,5 @@
+FROM nginx:latest
+LABEL maintainer 'Adriano Santana <ans3>'
+
+RUN echo '<h1> Sem Conteudo </h1>' > /usr/share/nginx/html/counteudo.html
+COPY *.html /usr/share/nginx/html

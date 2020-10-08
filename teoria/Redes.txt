@@ -1,0 +1,29 @@
+O docker possui 3 tipos de redes:
+  * None
+  * Bridge
+  * Host
+  
+Rede None:
+  Usamos essa rede quando queremos isolar totalmente um container, ele não há conexão com outros containers nem com a internet.
+  docker container run -d --net none debian
+
+Rede Bridge:
+  A rede bridge é a rede padrão criada quando executamos o comando docker run.
+
+Criando uma rede:
+  docker network create --driver bridge nova_rede
+
+Criando um container usando uma nova rede
+  docker container run -d --name container3 --net nova_rede alpine sleep 1000
+
+Se quisermos que um container faça parte de mais uma rede usamos:
+  docker network connect bridge container3
+Assim ele irá fazer parte tanto da rede3 como da rede bridge
+
+
+Para desconectar um container:
+  docker network disconnect bridge container3
+
+
+Usamos a rede host para permitir que o container use diretamente as interfaces de rede diretamente do host.
+Isso aumenta a velocidade mas diminui a segurança.
